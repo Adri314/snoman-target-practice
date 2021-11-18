@@ -21,6 +21,7 @@ function createSnowMan () {
         . . . . . 1 1 1 1 1 1 . . . . . 
         `, SpriteKind.Player)
     tiles.placeOnTile(snowMan, tiles.getTileLocation(0, 6))
+    snowMan.z = 10
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     music.thump.play()
@@ -152,7 +153,7 @@ function startGame () {
         9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
         9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
         `)
-    tiles.setTilemap(tilemap`level1`)
+    tiles.setTilemap(tilemap`level3`)
     createSnowBall()
     createSnowMan()
     createTarget()
@@ -192,10 +193,12 @@ function createTarget () {
 }
 function createSnowBall () {
     snowBall = darts.create(img`
-        . 1 1 . 
-        1 1 1 1 
-        1 1 1 1 
-        . 1 1 . 
+        . . 9 9 . . 
+        . 9 1 1 9 . 
+        9 1 1 1 1 9 
+        9 1 1 1 1 9 
+        . 9 1 1 9 . 
+        . . 9 9 . . 
         `, SpriteKind.Projectile, 10, 105)
     snowBall.controlWithArrowKeys()
     snowBall.setTrace()
@@ -205,23 +208,24 @@ let target: Sprite = null
 let snowBall: Dart = null
 let canThrow = false
 let snowMan: Sprite = null
+scene.setBackgroundColor(8)
 game.setDialogCursor(img`
-    . . 9 9 9 f f f f f 9 9 9 9 . . 
-    . 9 9 9 9 f f f f f 9 9 9 9 9 . 
-    9 9 9 9 9 f 2 2 2 2 9 9 9 9 9 9 
-    9 9 9 9 9 2 f f f f f f 9 9 9 9 
-    9 9 9 9 f f f 1 1 1 1 9 9 9 9 9 
-    9 9 9 9 f 1 1 1 f 1 f 9 9 9 9 9 
-    9 9 9 9 9 1 1 1 1 4 4 4 9 9 9 9 
-    9 9 9 9 9 2 1 1 1 1 1 1 9 9 9 9 
-    9 9 9 9 2 2 2 2 2 2 2 9 9 9 9 9 
-    9 9 2 2 2 1 1 2 1 1 1 1 9 9 9 9 
-    9 9 2 2 1 1 2 2 1 1 f 1 1 9 9 9 
-    9 9 9 1 1 1 2 2 1 1 1 1 1 9 9 9 
-    9 9 9 1 1 1 2 2 1 1 1 f 1 9 9 9 
-    9 9 9 1 1 1 1 1 1 1 1 1 1 9 9 9 
-    . 9 9 9 1 1 1 1 1 1 f 1 9 9 9 . 
-    . . 9 9 9 1 1 1 1 1 1 9 9 9 . . 
+    . . . . 9 f f f f f 9 . . . . . 
+    . . . . 9 f f f f f 9 . . . . . 
+    . . . . 9 f 2 2 2 2 9 9 . . . . 
+    . . . . 9 2 f f f f f f 9 . . . 
+    . . . 9 f f f 1 1 1 1 9 . . . . 
+    . . . 9 f 1 1 1 f 1 f 9 . . . . 
+    . . . . 9 1 1 1 1 4 4 4 9 . . . 
+    . . . . 9 2 1 1 1 1 1 1 9 . . . 
+    . . 9 9 2 2 2 2 2 2 2 9 . . . . 
+    . 9 2 2 2 1 1 2 1 1 1 1 9 . . . 
+    . 9 2 2 1 1 2 2 1 1 f 1 1 9 . . 
+    . . 9 1 1 1 2 2 1 1 1 1 1 9 . . 
+    . . 9 1 1 1 2 2 1 1 1 f 1 9 . . 
+    . . 9 1 1 1 1 1 1 1 1 1 1 9 . . 
+    . . . 9 1 1 1 1 1 1 f 1 9 . . . 
+    . . . . 9 1 1 1 1 1 1 9 . . . . 
     `)
 game.setDialogFrame(img`
     ..................................................................
